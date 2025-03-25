@@ -10,7 +10,10 @@ app.use(express.static('public'));
 app.post('/proxy', async (req, res) => {
   const userMessage = req.body.message;
   const apiKey = process.env.OPENAI_API_KEY;
-
+if (!apiKey) {
+  console.error("API ключ не найден!");
+  return res.status(500).json({ reply: "Ошибка: API ключ не найден на сервере" });
+}
   try {
     const response = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
