@@ -4,8 +4,7 @@ async function sendMessage() {
   const userText = input.value.trim();
   if (!userText) return;
 
-  // Выводим сообщение пользователя
-  messages.innerHTML += `\n\n<b>Вы:</b> ${userText}`;
+  messages.innerHTML += `<div><b>Вы:</b> ${userText}</div>`;
 
   try {
     const response = await fetch('/proxy', {
@@ -15,11 +14,9 @@ async function sendMessage() {
     });
 
     const data = await response.json();
-
-    // Выводим ответ ИИ
-    messages.innerHTML += `\n<b>ИИ:</b> ${data.reply}`;
+    messages.innerHTML += `<div><b>ИИ:</b> ${data.reply}</div>`;
   } catch (error) {
-    messages.innerHTML += `\n<b>ИИ:</b> Произошла ошибка при подключении к серверу.`;
+    messages.innerHTML += `<div><b>ИИ:</b> Произошла ошибка при подключении.</div>`;
   }
 
   input.value = '';
