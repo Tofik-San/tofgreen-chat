@@ -1,42 +1,29 @@
- async function sendMessage() { const input = document.getElementById('userInput'); const
+<!DOCTYPE html> <html lang="ru"> <head> <meta charset="UTF-8" /> <meta name="viewport"
+content="width=device-width, initial-scale=1.0"/> <title>Greentoff Чат (рабочая версия)</title>
+<style> body { font-family: Arial, sans-serif; background: #f2f4f8; margin: 0;
+padding: 0; display: flex; flex-direction: column; height: 100vh; }
+#messages { flex: 1; padding: 15px; overflow-y: auto; background: #ffffff;
+box-shadow: inset 0 0 8px rgba(0,0,0,0.05); border-top: 1px solid #ccc; display: flex;
+flex-direction: column; } #messages p { margin: 10px 0; padding: 10px;
+border-radius: 6px; max-width: 90%; line-height: 1.4; } #messages p.user {
+background: #e3f2fd; align-self: flex-end; } #messages p.bot { background:
+#e8f5e9; align-self: flex-start; } #inputArea { display: flex; flexdirection: row; border-top: 1px solid #ccc; } #userInput { flex: 1;
+padding: 10px; font-size: 16px; border: none; outline: none; }
+#sendMessage { padding: 10px 20px; font-size: 16px; background: #4CAF50;
+color: white; border: none; cursor: pointer; transition: background 0.3s; }
+#sendMessage:hover { background: #45a049; } </style> </head> <body> <div
+id="messages"></div> <div id="inputArea"> <input id="userInput" placeholder="Введите
+сообщение..." autofocus /> <button id="sendMessage">Отправить</button> </div> <script>
+async function sendMessage() { const input = document.getElementById('userInput'); const
 messages = document.getElementById('messages'); const userText = input.value.trim(); if
-(!userText) return; // Показываем сообщение пользователя messages.innerHTML += `<p><b>Вы:</b>
-${userText}</p>`; messages.scrollTop = messages.scrollHeight; // Полный systemPrompt
-вставляется сюда const systemPrompt = `Ты — ботанический ассистент. Ты создаёшь карточки растений
-по премиум-схеме, строго соблюдая структуру. Общие требования: • Карточка создаётся в виде единого
-текстового блока. • Стиль профессиональный, уважительный, понятный, без излишней формальности и
-панибратства. • Язык простой и доступный, информация структурирована чётко. • Советы и лайфхаки
-чётко выделяются отдельными подзаголовками. • Карточка должна быть читабельной на одном экране
-телефона, возможен небольшой выход за пределы при необходимости. • Не нарушать авторские права.
-Структура карточки (10 блоков с подзаголовками): 1. Название растения Русское и латинское название
-(например, Эухарис (Eucharis grandiflora)). 2. Описание + внутренний отклик Краткое описание
-внешнего вида, достоинств растения, его ценности как комнатного. Внутренний отклик — описать, каким
-людям подходит растение (характер, привычки, внутренний настрой). Включить 3 простых и полезных
-совета. 3. Уход Кратко указать освещение, температуру (летом и зимой), периодичность и правила
-полива. Лайфхаки: • Указать 2 простых и понятных лайфхака. Советы: • Дать 3 чётких, применимых
-совета по уходу. Наблюдения: • Привести 3 признака реакции растения на правильный или неправильный
-уход. 4. Посадка Тип грунта (нейтральный или кислый), уточнить возможность использования готовой
-смеси и выращивания в воде. 5. Корневая система и горшки Описать тип корней, чувствительность.
-Указать подходящую форму, размер и материал горшка, необходимость дренажа. 6. Удобрения Назвать 2
-популярных бренда удобрений, добавить 1–2 важных нюанса. Советы по подкормке: • Указать 3 простых
-совета по удобрению. 7. Обрезка Уточнить необходимость обрезки и объяснить кратко, что такое
-прищипка верхушки. Советы: • Привести 3 совета по правильной обрезке. Наблюдения: • Добавить 2
-наблюдения о последствиях правильной и неправильной обрезки. 8. Если растение уже есть, но не
-радует Разделить на два подпункта: При выращивании в воде: • Проблемы и рекомендации по их решению.
-При выращивании в почве: • Проблемы и рекомендации по их решению. 9. Интерьерная подача Указать
-лучшее место размещения в интерьере, подходящий стиль и цвет горшка, описать эмоциональное
-восприятие растения. 10. Интересный факт и психоэффект Один уникальный, запоминающийся факт о
-растении, завершённый лёгким символическим сравнением с человеком или описанием влияния растения на
-атмосферу. Заключение (обязательно): Greentoff Premium Карточка создана вручную на основе
-ботанических источников и практического опыта. Копирование и публикация без согласования не
-допускаются.`; try { const response = await fetch('/proxy', { method: 'POST',
-headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ model:
-"gpt-3.5-turbo", messages: [ { role: "system", content: systemPrompt },
-{ role: "user", content: userText } ] }) }); const data = await
-response.json(); const reply = data.reply || "Извините, нет ответа. Попробуйте ещё раз.";
-messages.innerHTML += `<p><b>Bot:</b><br>${reply}</p>`; messages.scrollTop =
-messages.scrollHeight; } catch (error) { messages.innerHTML += `<p><b>Ошибка:</b> не удалось
-получить ответ от сервера.</p>`; } input.value = ''; }
-document.getElementById('sendMessage').addEventListener('click', sendMessage);
+(!userText) return; messages.innerHTML += `<p class="user"><b>Вы:</b> ${userText}</p>`;
+messages.scrollTop = messages.scrollHeight; try { const response = await
+fetch('/proxy', { method: 'POST', headers: { 'Content-Type': 'application/json'
+}, body: JSON.stringify({ message: userText }) }); const data = await
+response.json(); const reply = data.reply || "Нет ответа от бота.";
+messages.innerHTML += `<p class="bot"><b>Бот:</b><br>${reply}</p>`; messages.scrollTop =
+messages.scrollHeight; } catch (error) { messages.innerHTML += `<p
+class="bot"><b>Ошибка:</b> не удалось получить ответ от сервера.</p>`; } input.value =
+''; } document.getElementById('sendMessage').addEventListener('click', sendMessage);
 document.getElementById('userInput').addEventListener('keydown', function (e) { if (e.key ===
-'Enter') { sendMessage(); } });
+'Enter') { sendMessage(); } }); </script> </body> </html>
