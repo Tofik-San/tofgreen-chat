@@ -25,7 +25,7 @@ app.post('/proxy', async (req, res) => {
     });
 
     const data = await response.json();
-    res.json({ reply: data.choices[0].message.content });
+    res.json({ reply: data.choices?.[0]?.message?.content || "Ошибка ответа от OpenAI" });
   } catch (error) {
     res.json({ reply: "Ошибка при подключении к OpenAI" });
   }
