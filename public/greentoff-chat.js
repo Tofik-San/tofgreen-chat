@@ -13,7 +13,7 @@ async function sendMessage() {
   });
 
   const data = await response.json();
-  messages.innerHTML += "\nИИ: " + (data.reply || 'Ошибка ответа');
+  messages.innerHTML += "\n" + (data.reply || "Ошибка ответа от OpenAI");
   input.value = '';
 }
 
