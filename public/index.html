@@ -1,42 +1,33 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
- <meta charset="UTF-8" />
- <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
- <title>GreenToff AI Chat</title>
- <style>
- * {
- box-sizing: border-box;
- }
+<style>
  body {
- margin: 0;
  font-family: sans-serif;
+ margin: 0;
+ padding: 0;
+ height: 100vh;
  display: flex;
  flex-direction: column;
- height: 100vh;
  }
  #chat {
  flex: 1;
  display: flex;
  flex-direction: column;
  justify-content: space-between;
- padding: 10px;
- background: #ffffff;
+ background-color: #f0f0f0;
  }
  #messages {
  flex: 1;
+ padding: 10px;
  overflow-y: auto;
- margin-bottom: 10px;
+ background-color: #fff;
  white-space: pre-wrap;
  }
- .input-area {
+ #inputArea {
  display: flex;
- gap: 10px;
  padding: 10px;
- background: #f9f9f9;
  border-top: 1px solid #ccc;
+ background-color: #fff;
  }
- input {
+ #userInput {
  flex: 1;
  padding: 10px;
  font-size: 16px;
@@ -47,18 +38,17 @@
  background-color: #4CAF50;
  color: white;
  border: none;
- border-radius: 5px;
+ margin-left: 10px;
+ cursor: pointer;
  }
- </style>
-</head>
-<body>
- <div id="chat">
+ button:hover {
+ background-color: #45a049;
+ }
+</style>
+<div id="chat">
  <div id="messages"></div>
- <div class="input-area">
+ <div id="inputArea">
  <input type="text" id="userInput" placeholder="Type your message..." />
  <button id="sendMessage">Send</button>
  </div>
- </div>
- <script src="greentoff-chat.js" defer></script>
-</body>
-</html>
+</div>
