@@ -18,12 +18,8 @@ async function sendMessage() {
     messages.innerHTML += `<p><b>ИИ:</b> ${data.reply}</p>`;
   } catch (error) {
   
-  }
-
-  input.value = '';
-}
+input.value = '';
 document.getElementById('button').addEventListener('click', sendMessage);
-
 document.getElementById('userInput').addEventListener('keypress', function (e) {
   if (e.key === 'Enter') {
     sendMessage();
