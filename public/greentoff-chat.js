@@ -4,7 +4,8 @@ async function sendMessage() {
   const userText = input.value.trim();
   if (!userText) return;
 
-  messages.innerHTML += `<div><b>Вы:</b> ${userText}</div>`;
+  // Отображаем только один раз сообщение пользователя
+  messages.innerHTML += `<p><b>Вы:</b> ${userText}</p>`;
 
   try {
     const response = await fetch('/proxy', {
@@ -14,9 +15,9 @@ async function sendMessage() {
     });
 
     const data = await response.json();
-    messages.innerHTML += `<div><b>ИИ:</b> ${data.reply}</div>`;
+    messages.innerHTML += `<p><b>ИИ:</b> ${data.reply}</p>`;
   } catch (error) {
-    messages.innerHTML += `<div><b>ИИ:</b> Произошла ошибка при подключении.</div>`;
+  
   }
 
   input.value = '';
