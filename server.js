@@ -1,4 +1,4 @@
-
+const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 const fetch = require('node-fetch');
@@ -29,7 +29,10 @@ app.post('/proxy', async (req, res) => {
         res.json({ reply: data.choices[0].message.content });
     } catch (error) {
         res.json({ reply: "Ошибка при подключении к OpenAI" });
-    }
+
+    app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
+});}
 });
 
 const PORT = process.env.PORT || 3000;
