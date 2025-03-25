@@ -23,4 +23,4 @@ async function sendMessage() {
   input.value = '';
 }
 
-document.querySelector('button').addEventListener('click', sendMessage);
+document.getElementById('button').addEventListener('click', sendMessage);
