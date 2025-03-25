@@ -4,16 +4,24 @@ async function sendMessage() {
   const userText = input.value.trim();
   if (!userText) return;
 
-  messages.innerHTML += '\n\nВы: ' + userText;
+  // Выводим сообщение пользователя
+  messages.innerHTML += `\n\n<b>Вы:</b> ${userText}`;
 
-  const response = await fetch('/proxy', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ message: userText })
-  });
+  try {
+    const response = await fetch('/proxy', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: userText })
+    });
 
-  const data = await response.json();
-  messages.innerHTML += "\n" + (data.reply || "Ошибка ответа от OpenAI");
+    const data = await response.json();
+
+    // Выводим ответ ИИ
+    messages.innerHTML += `\n<b>ИИ:</b> ${data.reply}`;
+  } catch (error) {
+    messages.innerHTML += `\n<b>ИИ:</b> Произошла ошибка при подключении к серверу.`;
+  }
+
   input.value = '';
 }
 
