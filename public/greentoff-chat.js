@@ -4,7 +4,6 @@ async function sendMessage() {
   const userText = input.value.trim();
   if (!userText) return;
 
-  // Отображаем только один раз сообщение пользователя
   messages.innerHTML += `<p><b>Вы:</b> ${userText}</p>`;
 
   try {
@@ -17,9 +16,14 @@ async function sendMessage() {
     const data = await response.json();
     messages.innerHTML += `<p><b>ИИ:</b> ${data.reply}</p>`;
   } catch (error) {
-  
-input.value = '';
-document.getElementById('button').addEventListener('click', sendMessage);
+    messages.innerHTML += `<p><b>ИИ:</b> Ошибка ответа от OpenAI</p>`;
+  }
+
+  input.value = '';
+}
+
+document.getElementById('sendMessage').addEventListener('click', sendMessage);
+
 document.getElementById('userInput').addEventListener('keypress', function (e) {
   if (e.key === 'Enter') {
     sendMessage();
