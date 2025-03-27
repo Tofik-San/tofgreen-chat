@@ -26,10 +26,10 @@ if (!apiKey) {
         messages: userMessage
       })
     });
-
+    
     const data = await response.json();
     res.json({ reply: data.choices?.[0]?.message?.content || "Ошибка ответа от OpenAI" });
-  }} catch (error) {
+  } catch (error) {
     console.error("Ошибка при запросе к OpenAI:", error);
     res.json({ reply: "Ошибка при подключении к OpenAI: " + error.message });
 }
