@@ -8,8 +8,9 @@ app.use(bodyParser.json());
 app.use(express.static('public'));
 
 app.post('/proxy', async (req, res) => {
-  const Messages = req.body.messages;
   const apiKey = process.env.OPENAI_API_KEY;
+  const messages = req.body.messages;
+  
 if (!apiKey) {
   console.error("API ключ не найден!");
   return res.status(500).json({ reply: "Ошибка: API ключ не найден на сервере" });
