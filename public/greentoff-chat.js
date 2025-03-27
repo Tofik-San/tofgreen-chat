@@ -19,29 +19,39 @@ function appendMessage(sender, message) {
     saveChatHistory();
 }
 
-async function sendMessage() {
-    const input = document.getElementById("userInput");
-    const userText = input.value;
-    if (!userText.trim()) return;
+let conversationHistory = [
+  { role: "system", content: "Ты — умный, дружелюбный ассистент. Отвечай понятно, структурировано и по теме." }
+];
 
-    appendMessage("Я", userText);
-    try {
-        const response = await fetch('/proxy', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ message: userText })
-        });
-        const data = await response.json();
-        appendMessage("Чат", data.reply);
-    } catch (error) {
-        appendMessage("Чат", "Привет давай разберемся что там у тебя");
-    }
-    input.value = '';
+async function sendMessage() {
+  const input = document.getElementById("userInput");
+  const userText = input.value.trim();
+  if (!userText) return;
+
+  appendMessage("Я", userText);
+  conversationHistory.push({ role: "user", content: userText });
+
+  try {
+    const response = await fetch("/proxy", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ messages: conversationHistory })
+    });
+
+    const data = await response.json();
+    appendMessage("Чат", data.reply);
+    conversationHistory.push({ role: "assistant", content: data.reply });
+    saveChatHistory();
+  } catch (error) {
+    appendMessage("Чат", "Что-то пошло не так, попробуй позже.");
+  }
+
+  input.value = "";
 }
 
 document.getElementById("sendMessage").addEventListener("click", sendMessage);
 document.getElementById("userInput").addEventListener("keydown", (e) => {
-    if (e.key === "Enter") {
-        sendMessage();
-    }
-    });
+  if (e.key === "Enter") {
+    sendMessage();
+  }
+});
