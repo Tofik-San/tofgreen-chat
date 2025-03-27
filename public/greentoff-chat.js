@@ -19,7 +19,6 @@ function appendMessage(sender, message) {
     saveChatHistory();
 }
 
-// РћС‚РїСЂР°РІРєР° СЃРѕРѕР±С‰РµРЅРёСЏ
 async function sendMessage() {
     const input = document.getElementById("userInput");
     const userText = input.value;
@@ -33,7 +32,7 @@ async function sendMessage() {
             body: JSON.stringify({ message: userText })
         });
         const data = await response.json();
-        appendMessage("Я", data.reply);
+        appendMessage("Чат", data.reply);
     } catch (error) {
         appendMessage("Чат", "Привет давай разберемся что там у тебя");
     }
