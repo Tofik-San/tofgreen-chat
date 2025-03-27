@@ -9,7 +9,7 @@ app.use(express.static('public'));
 
 app.post('/proxy', async (req, res) => {
   const apiKey = process.env.OPENAI_API_KEY;
-  const messages = req.body.message;
+  const messages = req.body.messages;
   
 if (!apiKey) {
   console.error("API ключ не найден!");
