@@ -2,49 +2,35 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>Greentoff Chat</title>
-  <style>
-    body {
-      font-family: sans-serif;
-      padding: 20px;
-      background: #f9f9f9;
-    }
-    #chat {
-      max-width: 600px;
-      margin: auto;
-      border: 1px solid #ccc;
-      padding: 10px;
-      background: #fff;
-      border-radius: 10px;
-    }
-    .input-area {
-      margin-top: 10px;
-    }
-    input[type="text"] {
-      width: 80%;
-      padding: 10px;
-      font-size: 16px;
-    }
-    button {
-      padding: 10px 20px;
-      font-size: 16px;
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      margin-left: 5px;
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Greentoff Agent</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-<body>
-  <div id="chat">
-    <div id="messages"></div>
-    <div class="input-area">
-      <input type="text" id="userInput" placeholder="Type your message..." />
-      <button onclick="sendMessage()">Send</button>
-      <button onclick="clearChat()">Сбросить</button>
+<body data-mode="neutral">
+  <div id="app">
+    <!-- Заголовок -->
+    <header>
+      <h1>Greentoff Agent</h1>
+      <p class="subtitle">Твой личный бот — говорит, помнит, помогает</p>
+    </header>
+
+    <!-- Основная область чата -->
+    <main id="chat-container">
+      <div id="messages"></div>
+      <div class="input-area">
+        <input type="text" id="userInput" placeholder="Напиши что-нибудь..." autofocus>
+        <button onclick="sendMessage()">Отправить</button>
+        <button onclick="clearChat()">Сбросить</button>
+      </div>
+    </main>
+
+    <!-- Блок под будущие кнопки режимов -->
+    <div id="modes" hidden>
+      <!-- Например: <button data-mode="plants">Растения</button> -->
     </div>
   </div>
+
+  <!-- Скрипт -->
   <script src="greentoff-chat.js" defer></script>
 </body>
 </html>
