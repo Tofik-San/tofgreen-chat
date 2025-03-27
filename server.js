@@ -8,7 +8,7 @@ app.use(bodyParser.json());
 app.use(express.static('public'));
 
 app.post('/proxy', async (req, res) => {
-  const userMessage = req.body.message;
+  const Message = req.body.message;
   const apiKey = process.env.OPENAI_API_KEY;
 if (!apiKey) {
   console.error("API ключ не найден!");
@@ -23,15 +23,7 @@ if (!apiKey) {
       },
       body: JSON.stringify({
         model: "gpt-3.5-turbo",
-        messages: [
-          { role: "system", 
-           content: "Ты — умный, но спокойный AI-помощник Greentoff. Ты отвечаешь коротко, по делу, без воды. Общение лёгкое, живое, но с уважением к личным границам. Главное — быть полезным, а не умничать. Если не знаешь ответ — скажи честно или предложи наводящий вопрос. Ты не говоришь 'я — ИИ', не извиняешься, не повторяешь одно и то же. Важно: не превращай ответ в лекцию" 
-          },
-          {
-            role:"user",
-            content: userMessage
-          }
-        ]
+        messages: messages
       })
     });
 
