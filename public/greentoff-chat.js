@@ -47,4 +47,5 @@ document.getElementById("sendMessage").addEventListener("click", sendMessage);
 document.getElementById("userInput").addEventListener("keydown", (e) => {
     if (e.key === "Enter") {
         sendMessage();
+    }
     });
