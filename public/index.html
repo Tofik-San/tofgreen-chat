@@ -7,20 +7,16 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div id="app">
-    <header>
-      <h1>Greentoff Agent</h1>
-      <div class="subtitle">Твой личный бот — говорит, помнит, помогает</div>
-    </header>
-    <div id="chat-container">
-      <div id="messages"></div>
-      <div class="input-area">
-        <input type="text" id="userInput" placeholder="Напиши что-нибудь..." />
-        <button onclick="sendMessage()">Отправить</button>
-        <button onclick="clearChat()">Сбросить</button>
-      </div>
+  <div class="chat-container">
+    <h1>Greentoff Agent</h1>
+    <p class="subtitle">Твой личный бот — говорит, помнит, помогает</p>
+    <div id="chat-box"></div>
+    <div class="input-area">
+      <input type="text" id="userInput" placeholder="Напиши что-нибудь..." />
+      <button onclick="sendMessage()">Отправить</button>
+      <button onclick="clearChat()">Сбросить</button>
     </div>
   </div>
-  <script src="greentoff-chat.js"></script>
+  <script src="greentoff-chat.js" defer></script>
 </body>
 </html>
