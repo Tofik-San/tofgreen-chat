@@ -35,7 +35,7 @@ async function sendMessage() {
 
   appendMessage("Я", userText);
   conversationHistory.push({ role: "user", content: userText });
-
+console.log(conversationHistory);
   try {
     const response = await fetch("/proxy", {
       method: "POST",
