@@ -40,7 +40,7 @@ async function sendMessage() {
     const response = await fetch("/proxy", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ messages: conversationHistory })
+      body: JSON.stringify({ message: conversationHistory })
     });
 
     const data = await response.json();
