@@ -1,47 +1,41 @@
-window.addEventListener("load", () => {
-    const savedMessages = localStorage.getItem("chatHistory");
-    if (savedMessages) {
-        document.getElementById("messages").innerHTML = savedMessages;
-    }
-});
-
-function saveChatHistory() {
-    const chatContent = document.getElementById("messages").innerHTML;
-    localStorage.setItem("chatHistory", chatContent);
-}
-
-function appendMessage(sender, message) {
-    const chatWindow = document.getElementById("messages");
-    const messageElement = document.createElement("div");
-    messageElement.innerHTML = `<strong>${sender}:</strong> ${message}`;
-    chatWindow.appendChild(messageElement);
-    chatWindow.scrollTop = chatWindow.scrollHeight;
-    saveChatHistory();
-}
+let messages = [];
 
 async function sendMessage() {
-    const input = document.getElementById("userInput");
-    const userText = input.value;
-    if (!userText.trim()) return;
+  const input = document.getElementById("user-input");
+  const chatBox = document.getElementById("chat-box");
+  const userMessage = input.value.trim();
 
-    appendMessage("Я", userText);
-    try {
-        const response = await fetch('/proxy', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ message: userText })
-        });
-        const data = await response.json();
-        appendMessage("Чат", data.reply);
-    } catch (error) {
-        appendMessage("Чат", "Привет давай разберемся что там у тебя");
-    }
-    input.value = '';
+  if (!userMessage) return;
+
+  // Добавляем сообщение пользователя
+  messages.push({ role: "user", content: userMessage });
+
+  // Оставляем только последние 3 сообщения
+  if (messages.length > 3) messages.shift();
+
+  // Очищаем поле и показываем сообщение пользователя
+  input.value = "";
+  chatBox.innerHTML += `<div><b>Ты:</b> ${userMessage}</div>`;
+
+  // Отправляем на сервер
+  const response = await fetch("/proxy", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      message: userMessage
+    })
+  });
+
+  const data = await response.json();
+  const botReply = data.reply || "Ошибка: бот не ответил";
+
+  // Показываем ответ бота
+  chatBox.innerHTML += `<div><b>Бот:</b> ${botReply}</div>`;
+  chatBox.scrollTop = chatBox.scrollHeight;
 }
 
-document.getElementById("sendMessage").addEventListener("click", sendMessage);
-document.getElementById("userInput").addEventListener("keydown", (e) => {
-    if (e.key === "Enter") {
-        sendMessage();
-    }
-    });
+// Функция для сброса чата
+function clearChat() {
+  messages = [];
+  document.getElementById("chat-box").innerHTML = "";
+}
