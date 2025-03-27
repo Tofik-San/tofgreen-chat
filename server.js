@@ -15,25 +15,25 @@ if (!apiKey) {
   return res.status(500).json({ reply: "Ошибка: API ключ не найден на сервере" });
 }
   try {
-    const response = await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Authorization": `Bearer ${apiKey}`,
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        model: "gpt-3.5-turbo",
-        messages: userMessage
-      })
-    });
-    
-    const data = await response.json();
-    res.json({ reply: data.choices?.[0]?.message?.content || "Ошибка ответа от OpenAI" });
-  } catch (error) {
-    console.error("Ошибка при запросе к OpenAI:", error);
-    res.json({ reply: "Ошибка при подключении к OpenAI: " + error.message });
+  const response = await fetch("https://api.openai.com/v1/chat/completions", {
+    method: "POST",
+    headers: {
+      "Authorization": `Bearer ${apiKey}`,
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      model: "gpt-3.5-turbo",
+      messages: [{ role: "user", content: userMessage }]
+    })
+  });
+
+  const data = await response.json();
+  res.json({ reply: data.choices?.[0]?.message?.content || "Ошибка ответа от OpenAI" });
+
+} catch (error) {
+  console.error("Ошибка при запросе к OpenAI:", error);
+  res.json({ reply: "Ошибка при подключении к OpenAI: " + error.message });
 }
-  }
 });
 
 const PORT = process.env.PORT || 3000;
