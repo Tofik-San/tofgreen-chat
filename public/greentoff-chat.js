@@ -37,5 +37,5 @@ async function sendMessage() {
 // Функция для сброса чата
 function clearChat() {
   messages = [];
-  document.getElementById("chat-box").innerHTML = "";
+  document.getElementById("messages").innerHTML = "";
 }
