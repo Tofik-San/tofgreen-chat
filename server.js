@@ -1,7 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
-const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
+const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 
 const app = express();
 app.use(bodyParser.json());
@@ -12,8 +12,7 @@ app.post('/proxy', async (req, res) => {
   const apiKey = process.env.OPENAI_API_KEY;
 
   if (!apiKey) {
-    console.error("API ключ не найден!");
-    return res.status(500).json({ reply: "Ошибка: API ключ не найден на сервере" });
+    return res.status(500).json({ reply: "Ошибка: API ключ не найден" });
   }
 
   try {
@@ -25,15 +24,24 @@ app.post('/proxy', async (req, res) => {
       },
       body: JSON.stringify({
         model: "gpt-3.5-turbo",
-        messages: messages
+        messages: [
+          {
+            role: "system",
+            content: "Ты — умный, спокойный и уверенный AI-помощник Greentoff. Отвечай понятно, без воды, с поддержкой, но не сюсюкай."
+          },
+          ...messages
+        ]
       })
     });
 
     const data = await response.json();
-    res.json({ reply: data.choices?.[0]?.message?.content || "Ошибка: пустой ответ от OpenAI" });
-
+    res.json({ reply: data.choices?.[0]?.message?.content || "Ответ не получен" });
   } catch (error) {
-    console.error("Ошибка при обращении к OpenAI:", error);
     res.json({ reply: "Ошибка при подключении к OpenAI" });
   }
+});
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Сервер запущен на порту ${PORT}`);
 });
