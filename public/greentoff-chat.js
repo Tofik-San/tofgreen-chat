@@ -1,4 +1,3 @@
-// Загружаем историю при старте
 window.addEventListener("load", () => {
   const savedMessages = localStorage.getItem("chatHistory");
   if (savedMessages) {
@@ -6,13 +5,11 @@ window.addEventListener("load", () => {
   }
 });
 
-// Сохраняем чат в localStorage
 function saveChatHistory() {
   const chatContent = document.getElementById("messages").innerHTML;
   localStorage.setItem("chatHistory", chatContent);
 }
 
-// Добавляем сообщение в чат и сохраняем
 function appendMessage(sender, message) {
   const chatWindow = document.getElementById("messages");
   const messageElement = document.createElement("div");
@@ -22,12 +19,10 @@ function appendMessage(sender, message) {
   saveChatHistory();
 }
 
-// История общения для логики (как память)
 let conversationHistory = [
   { role: "system", content: "Ты — умный, дружелюбный ассистент. Отвечай понятно, структурировано и по теме." }
 ];
 
-// Основная функция отправки сообщений
 async function sendMessage() {
   const input = document.getElementById("userInput");
   const userText = input.value.trim();
