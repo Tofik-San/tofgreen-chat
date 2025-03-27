@@ -9,7 +9,7 @@ app.use(express.static('public'));
 
 app.post('/proxy', async (req, res) => {
   const apiKey = process.env.OPENAI_API_KEY;
-  const messages = req.body.messages;
+  const messages = req.body.message;
   
 if (!apiKey) {
   console.error("API ключ не найден!");
@@ -24,7 +24,7 @@ if (!apiKey) {
     },
     body: JSON.stringify({
       model: "gpt-3.5-turbo",
-      messages: [{ role: "user", content: userMessage }]
+      messages: message
     })
   });
 
