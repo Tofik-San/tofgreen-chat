@@ -23,3 +23,27 @@ document.getElementById('userInput').addEventListener('keydown', function (e) {
  sendMessage();
  }
 });
+// Восстановление истории сообщений при загрузке страницы
+window.addEventListener("load", () => {
+  const savedMessages = localStorage.getItem("chatHistory");
+  if (savedMessages) {
+    document.getElementById("chat-window").innerHTML = savedMessages;
+  }
+});
+
+// Сохраняем историю чата после каждого сообщения
+function saveChatHistory() {
+  const chatContent = document.getElementById("chat-window").innerHTML;
+  localStorage.setItem("chatHistory", chatContent);
+}
+
+// Заменяем appendMessage на свою версию с сохранением
+function appendMessage(sender, message) {
+  const chatWindow = document.getElementById("chat-window");
+  const messageElement = document.createElement("div");
+  messageElement.innerHTML = `<strong>${sender}:</strong> ${message}`;
+  chatWindow.appendChild(messageElement);
+  chatWindow.scrollTop = chatWindow.scrollHeight;
+
+  saveChatHistory(); // сохраняем после добавления сообщения
+}
