@@ -1,70 +1,56 @@
-let chatHistory = [];
-
 async function sendMessage() {
-    const input = document.getElementById('userInput');
+    const input = document.getElementById("userInput");
     const userText = input.value.trim();
-    if (!userText) return;
+    if (userText === "") return;
 
-    appendMessage("Я", userText);
-    chatHistory.push({ role: "user", content: userText });
+    appendMessage("РЇ", userText);
+    input.value = "";
 
     try {
         const response = await fetch("/proxy", {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                messages: chatHistory,
-            }),
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ message: userText })
         });
 
         const data = await response.json();
-        appendMessage("Чат", data.reply);
-        chatHistory.push({ role: "assistant", content: data.reply });
-
-        saveChatHistory(); // сохраняем с памятью
+        appendMessage("Р§Р°С‚", data.reply);
     } catch (error) {
-        appendMessage("Error", "Произошла ошибка.");
+        appendMessage("Р§Р°С‚", "РћС€РёР±РєР° СЃРѕРµРґРёРЅРµРЅРёСЏ. РџРѕРїСЂРѕР±СѓР№С‚Рµ РїРѕР·Р¶Рµ.");
+        console.error(error);
     }
-
-    input.value = "";
 }
 
+// РЎРѕС…СЂР°РЅСЏРµРј РёСЃС‚РѕСЂРёСЋ РїРѕСЃР»Рµ Р·Р°РіСЂСѓР·РєРё СЃС‚СЂР°РЅРёС†С‹
+window.addEventListener("load", () => {
+    const savedMessages = localStorage.getItem("chatHistory");
+    if (savedMessages) {
+        document.getElementById("messages").innerHTML = savedMessages;
+    }
+});
+
+// РЎРѕС…СЂР°РЅСЏРµРј РёСЃС‚РѕСЂРёСЋ С‡Р°С‚Р° РїРѕСЃР»Рµ РєР°Р¶РґРѕРіРѕ СЃРѕРѕР±С‰РµРЅРёСЏ
+function saveChatHistory() {
+    const chatContent = document.getElementById("messages").innerHTML;
+    localStorage.setItem("chatHistory", chatContent);
+}
+
+// Р”РѕР±Р°РІР»РµРЅРёРµ СЃРѕРѕР±С‰РµРЅРёР№ РІ РѕРєРЅРѕ С‡Р°С‚Р°
 function appendMessage(sender, message) {
-    const chatWindow = document.getElementById("chat-window");
+    const chatWindow = document.getElementById("messages");
+    if (!chatWindow) {
+        console.error("Р­Р»РµРјРµРЅС‚ 'messages' РЅРµ РЅР°Р№РґРµРЅ.");
+        return;
+    }
     const messageElement = document.createElement("div");
-    messageElement.innerHTML = "<strong>" + sender + ":</strong> " + message;
+    messageElement.innerHTML = `<strong>${sender}:</strong> ${message}`;
     chatWindow.appendChild(messageElement);
     chatWindow.scrollTop = chatWindow.scrollHeight;
+    saveChatHistory();
 }
 
-function saveChatHistory() {
-    localStorage.setItem("chatHistory", JSON.stringify(chatHistory));
-}
-
-function loadChatHistory() {
-    const saved = localStorage.getItem("chatHistory");
-    if (saved) {
-        try {
-            chatHistory = JSON.parse(saved);
-            chatHistory.forEach((entry) => {
-                const who = entry.role === "user" ? "Я" : "Чат";
-                appendMessage(who, entry.content);
-            });
-        } catch (e) {
-            chatHistory = [];
-        }
-    }
-}
-
-window.addEventListener("load", () => {
-    loadChatHistory();
-});
-
+// РќР°Р·РЅР°С‡Р°РµРј РґРµР№СЃС‚РІРёСЏ РїРѕ РєРЅРѕРїРєРµ Рё Enter
 document.getElementById("sendMessage").addEventListener("click", sendMessage);
-document.getElementById("userInput").addEventListener("keydown", function (e) {
+document.getElementById("userInput").addEventListener("keydown", (e) => {
     if (e.key === "Enter") {
         sendMessage();
-    }
-});
