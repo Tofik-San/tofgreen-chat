@@ -1,47 +1,51 @@
+async function sendMessage() {
+  const input = document.getElementById('userInput');
+  const userText = input.value.trim();
+  if (userText === '') return;
+
+  appendMessage("You", userText);
+  input.value = '';
+
+  try {
+    const response = await fetch('/proxy', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: userText })
+    });
+    const data = await response.json();
+    appendMessage("OpenAI", data.reply);
+  } catch (error) {
+    appendMessage("OpenAI", "Ошибка при получении ответа.");
+  }
+}
+
+// Загружаем историю чата при открытии страницы
 window.addEventListener("load", () => {
   const savedMessages = localStorage.getItem("chatHistory");
   if (savedMessages) {
-    document.getElementById("chat-window").innerHTML = savedMessages;
+    document.getElementById("messages").innerHTML = savedMessages;
   }
 });
 
-// РЎРѕС…СЂР°РЅСЏРµРј РёСЃС‚РѕСЂРёСЋ С‡Р°С‚Р° РїРѕСЃР»Рµ РєР°Р¶РґРѕРіРѕ СЃРѕРѕР±С‰РµРЅРёСЏ
+// Сохраняем чат после каждого сообщения
 function saveChatHistory() {
-  const chatContent = document.getElementById("chat-window").innerHTML;
+  const chatContent = document.getElementById("messages").innerHTML;
   localStorage.setItem("chatHistory", chatContent);
 }
 
-// Р”РѕР±Р°РІР»СЏРµРј СЃРѕРѕР±С‰РµРЅРёРµ Рё СЃРѕС…СЂР°РЅСЏРµРј РёСЃС‚РѕСЂРёСЋ
+// Добавляем сообщение и сохраняем историю
 function appendMessage(sender, message) {
-  const chatWindow = document.getElementById("chat-window");
+  const chatWindow = document.getElementById("messages");
   const messageElement = document.createElement("div");
   messageElement.innerHTML = `<strong>${sender}:</strong> ${message}`;
   chatWindow.appendChild(messageElement);
   chatWindow.scrollTop = chatWindow.scrollHeight;
+
   saveChatHistory();
 }
 
-// РћС‚РїСЂР°РІРєР° СЃРѕРѕР±С‰РµРЅРёСЏ
-async function sendMessage() {
-  const input = document.getElementById("userInput");
-  const userText = input.value.trim();
-  if (userText === "") return;
-
-  appendMessage("РўС‹", userText);
-  input.value = "";
-
-  try {
-    const response = await fetch("/proxy", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ message: userText })
-    });
-
-    const data = await response.json();
-    appendMessage("Greentoff Agent", data.reply);
-  } catch (error) {
-    appendMessage("Greentoff Agent", "РџСЂРѕРёР·РѕС€Р»Р° РѕС€РёР±РєР° РїСЂРё РїРѕР»СѓС‡РµРЅРёРё РѕС‚РІРµС‚Р°.");
-  }
-}
-
-document.getElementById("sendMessage").addEventListener("click", sendMessage);
+// События
+document.getElementById('sendMessage').addEventListener('click', sendMessage);
+document.getElementById('userInput').addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') sendMessage();
+});
