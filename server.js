@@ -11,7 +11,7 @@ app.post('/proxy', async (req, res) => {
   const apiKey = process.env.OPENAI_API_KEY;
   const messages = req.body.messages;
   
-if (!apiKey) {
+  if (!apiKey) {
   console.error("API ключ не найден!");
   return res.status(500).json({ reply: "Ошибка: API ключ не найден на сервере" });
 }
@@ -24,7 +24,7 @@ if (!apiKey) {
     },
     body: JSON.stringify({
       model: "gpt-3.5-turbo",
-      messages: message
+      messages: messages
     })
   });
 
