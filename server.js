@@ -1,19 +1,21 @@
 require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
-const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
+const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
 
 const app = express();
 app.use(bodyParser.json());
 app.use(express.static('public'));
 
 app.post('/proxy', async (req, res) => {
-  const Message = req.body.message;
+  const messages = req.body.message;
   const apiKey = process.env.OPENAI_API_KEY;
-if (!apiKey) {
-  console.error("API ключ не найден!");
-  return res.status(500).json({ reply: "Ошибка: API ключ не найден на сервере" });
-}
+
+  if (!apiKey) {
+    console.error("API ключ не найден!");
+    return res.status(500).json({ reply: "Ошибка: API ключ не найден на сервере" });
+  }
+
   try {
     const response = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
@@ -28,11 +30,10 @@ if (!apiKey) {
     });
 
     const data = await response.json();
-    res.json({ reply: data.choices?.[0]?.message?.content || "Ошибка ответа от OpenAI" });
+    res.json({ reply: data.choices?.[0]?.message?.content || "Ошибка: пустой ответ от OpenAI" });
+
   } catch (error) {
+    console.error("Ошибка при обращении к OpenAI:", error);
     res.json({ reply: "Ошибка при подключении к OpenAI" });
   }
 });
-
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Сервер запущен на порту ${PORT}`));
