@@ -1,7 +1,7 @@
-
 {
-  "name": "greentoff-chat",
+  "name": "greentoff-agent",
   "version": "1.0.0",
+  "description": "Интерактивный AI-бот с памятью и гибкой логикой",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
@@ -10,6 +10,12 @@
     "body-parser": "^1.20.2",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
-    "node-fetch": "^2.6.7"
-  }
+    "node-fetch": "^3.3.2"
+  },
+  "engines": {
+    "node": ">=16"
+  },
+  "keywords": [],
+  "author": "Greentoff",
+  "license": "MIT"
 }
