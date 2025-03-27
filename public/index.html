@@ -1,25 +1,64 @@
-async function sendMessage() {
- const input = document.getElementById('userInput');
- const messages = document.getElementById('messages');
- const userText = input.value.trim();
- if (!userText) return;
- messages.innerHTML += `<p><b>:</b> ${userText}</p>`;
- try {
- const response = await fetch('/proxy', {
- method: 'POST',
- headers: { 'Content-Type': 'application/json' },
- body: JSON.stringify({ message: userText })
- });
- const data = await response.json();
- messages.innerHTML += `<p><b>:</b> ${data.reply}</p>`;
- } catch (error) {
- messages.innerHTML += `<p><b>:</b> OpenAI</p>`;
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+ <meta charset="UTF-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+ <title>GreenToff AI Chat</title>
+ <style>
+ * {
+ box-sizing: border-box;
  }
- input.value = '';
-}
-document.getElementById('sendMessage').addEventListener('click', sendMessage);
-document.getElementById('userInput').addEventListener('keydown', function (e) {
- if (e.key === 'Enter') {
- sendMessage();
+ body {
+ margin: 0;
+ font-family: sans-serif;
+ display: flex;
+ flex-direction: column;
+ height: 100vh;
  }
-});
+ #chat {
+ flex: 1;
+ display: flex;
+ flex-direction: column;
+ justify-content: space-between;
+ padding: 10px;
+ background: #ffffff;
+ }
+ #messages {
+ flex: 1;
+ overflow-y: auto;
+ margin-bottom: 10px;
+ white-space: pre-wrap;
+ }
+ .input-area {
+ display: flex;
+ gap: 10px;
+ padding: 10px;
+ background: #f9f9f9;
+ border-top: 1px solid #ccc;
+ }
+ input {
+ flex: 1;
+ padding: 10px;
+ font-size: 16px;
+ }
+ button {
+ padding: 10px 20px;
+ font-size: 16px;
+ background-color: #4CAF50;
+ color: white;
+ border: none;
+ border-radius: 5px;
+ }
+ </style>
+</head>
+<body>
+ <div id="chat">
+ <div id="messages"></div>
+ <div class="input-area">
+ <input type="text" id="userInput" placeholder="Type your message..." />
+ <button id="sendMessage">Send</button>
+ </div>
+ </div>
+ <script src="greentoff-chat.js" defer></script>
+</body>
+</html>
