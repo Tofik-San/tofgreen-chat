@@ -1,74 +1,63 @@
+
 body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background-color: #white;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  min-height: 100vh;
-  padding: 20px;
+    margin: 0;
+    padding: 0;
+    background-color: #d9cbb0; /* темно-бежевый фон */
+    font-family: "Segoe UI", sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
 }
-#app {
-  background-color: #ffffff;
-  border: 3px solid #8dc63f;
-  border-radius: 10px;
-  padding: 20px;
-  width: 100%;
-  max-width: 500px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+
+.chat-container {
+    background-color: #fff;
+    border: 3px solid #43b943;
+    border-radius: 16px;
+    padding: 25px;
+    width: 92vw;
+    max-width: 420px;
+    box-sizing: border-box;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.2);
 }
-header h1 {
-  margin: 0;
-  font-size: 24px;
-  color: #222;
+
+header {
+    margin-bottom: 20px;
+    text-align: left;
 }
-.subtitle {
-  margin: 5px 0 15px;
-  font-size: 14px;
-  color: #555;
-}
-#chat-container {
-  display: flex;
-  flex-direction: column;
-}
+
 #messages {
-  max-height: 400px;
-  overflow-y: auto;
-  margin-bottom: 15px;
-  padding: 10px 20px;
-  border: 25px solid #ddd;
-  border-radius: 5px;
-  background: #fafafa;
-  font-size: 20px;
-  line-height: 1.8;
+    max-height: 400px;
+    overflow-y: auto;
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background: #fafafa;
+    font-size: 14px;
+    line-height: 1.4;
 }
+
 .input-area {
-  display: flex;
-  gap: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: stretch;
 }
+
 input[type="text"] {
-  flex-grow: 1;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
 }
+
 button {
-  padding: 10px 15px;
-  border: none;
-  border-radius: 5px;
-  background-color: #8dc63f;
-  color: white;
-  cursor: pointer;
-  font-weight: bold;
-}
-button:hover {
-  background-color: #7ab532;
-}
-.user-msg {
-  color: #222;
-  margin-bottom: 8px;
-}
-.bot-msg {
-  color: #4b7e23;
-  margin-bottom: 12px;
+    padding: 10px;
+    background-color: #43b943;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
 }

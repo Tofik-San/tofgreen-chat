@@ -1,92 +1,25 @@
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Greentoff Agent</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      background-color: #white;
-      font-family: 'Segoe UI', sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-    }
-
-    .chat-container {
-      background-color: #e0d6c2;
-      border: 4px solid #43b943;
-      border-radius: 14px;
-      padding: 96px;
-      width: 92vw;
-      max-width: 420px;
-      box-sizing: border-box;
-      box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
-    }
-
-    h1 {
-      font-size: 30px;
-      margin-bottom: 10px;
-    }
-
-    .subtitle {
-      font-size: 14px;
-      color: #555;
-      margin-bottom: 16px;
-    }
-
-    #messages {
-      min-height: 140px;
-      margin-bottom: 15px;
-      white-space: pre-wrap;
-      font-size: 15px;
-    }
-
-    .input-area {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    input[type="text"] {
-      flex: 1;
-      padding: 10px;
-      font-size: 14px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-    }
-
-    button {
-      padding: 10px 14px;
-      font-size: 14px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      background-color: #43b943;
-      color: white;
-      transition: background-color 0.2s;
-    }
-
-    button:hover {
-      background-color: #388e3c;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TestChat_II</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="chat-container">
-    <h1>TestChat_Ii</h1>
-    <div class="subtitle">Персональный помощник</div>
-    <div id="messages"></div>
-    <div class="input-area">
-      <input type="text" id="userInput" placeholder="Напиши что-нибудь..." />
-      <button onclick="sendMessage()">Отправить</button>
-      <button onclick="clearChat()">Сбросить</button>
+    <div class="chat-container">
+        <header>
+            <h1>TestChat_II</h1>
+            <p>Персональный помощник</p>
+        </header>
+        <div id="messages"></div>
+        <div class="input-area">
+            <input type="text" id="userInput" placeholder="Напиши что-нибудь...">
+            <button onclick="sendMessage()">Отправить</button>
+            <button onclick="clearChat()">Сбросить</button>
+        </div>
     </div>
-  </div>
-
-  <script src="greentoff-chat.js" defer></script>
+    <script src="chat.js"></script>
 </body>
 </html>
