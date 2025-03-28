@@ -1,0 +1,25 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Greentoff Chat</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="outer-container">
+    <div class="chat-container">
+      <div class="chat-box" id="chat-box">
+        <div class="message user">Привет!</div>
+        <div class="message bot">Здравствуйте. Готов к работе.</div>
+      </div>
+      <div class="input-container">
+        <textarea id="user-input" placeholder="Напишите сообщение..."></textarea>
+        <button onclick="sendMessage()">Отправить</button>
+      </div>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
