@@ -1,47 +1,20 @@
-const express = require("express");
-const fetch = require("node-fetch");
-const cors = require("cors");
-const bodyParser = require("body-parser");
 
+const express = require('express');
+const bodyParser = require('body-parser');
+const cors = require('cors');
 const app = express();
-const PORT = process.env.PORT || 8080;
+const port = 8080;
 
 app.use(cors());
 app.use(bodyParser.json());
-app.use(express.static("public"));
+app.use(express.static('public'));
 
-app.post("/proxy", async (req, res) => {
-  const messages = req.body.message;
-  const apiKey = process.env.OPENAI_API_KEY;
-
-  if (!apiKey) {
-    return res.status(500).json({ reply: "Ошибка: API ключ не найден" });
-  }
-
-  try {
-    const response = await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Authorization": `Bearer ${apiKey}`,
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        model: "gpt-3.5-turbo",
-        messages: [
-          { role: "system", content: "Ты — умный, но спокойный AI-помощник Greentoff. Ты говоришь просто и понятно." },
-          ...messages
-        ]
-      })
-    });
-
-    const data = await response.json();
-    res.json({ reply: data.choices?.[0]?.message?.content || "Ошибка: нет ответа от модели" });
-
-  } catch (error) {
-    res.json({ reply: "Ошибка при подключении к OpenAI" });
-  }
+app.post('/api', async (req, res) => {
+  const userMessage = req.body.message;
+  const reply = `Ты написал: "${userMessage}". Пока что я просто эхо, но скоро стану умным!`;
+  res.json({ reply });
 });
 
-app.listen(PORT, () => {
-  console.log(`Сервер запущен на порту ${PORT}`);
+app.listen(port, () => {
+  console.log(`Сервер запущен на порту ${port}`);
 });
