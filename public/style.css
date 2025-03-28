@@ -48,7 +48,7 @@ h1 {
 .input-area {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 10px 20px;
 }
 
 textarea {
