@@ -2,8 +2,8 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: #d6cbb2;
-  font-family: "Segoe UI", sans-serif;
+  background-color: #d6c7a7;
+  font-family: 'Segoe UI', sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -16,27 +16,28 @@ body {
   border-radius: 12px;
   padding: 20px;
   width: 92vw;
-  max-width: 480px;
+  max-width: 420px;
   box-sizing: border-box;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.15);
 }
 
 h1 {
   font-size: 24px;
-  margin: 0;
+  margin-bottom: 0;
 }
 
-.subtitle {
-  margin: 6px 0 16px 0;
+p {
+  margin-top: 4px;
+  margin-bottom: 16px;
   font-size: 16px;
   color: #444;
 }
 
 #messages {
-  max-height: 360px;
+  max-height: 300px;
   overflow-y: auto;
   margin-bottom: 15px;
-  padding: 12px;
+  padding: 10px;
   border: 1px solid #ddd;
   border-radius: 8px;
   background: #fafafa;
@@ -44,41 +45,30 @@ h1 {
   line-height: 1.5;
 }
 
-.input-area {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-textarea {
+.input-area textarea {
+  width: 100%;
   padding: 10px;
+  font-size: 15px;
   resize: none;
-  font-size: 14px;
   border: 1px solid #ccc;
   border-radius: 8px;
-  width: 100%;
   box-sizing: border-box;
-  height: 80px;
+  margin-bottom: 10px;
 }
 
 .button-area {
   display: flex;
   justify-content: space-between;
-  gap: 10px;
 }
 
-button {
+.button-area button {
   flex: 1;
+  margin: 0 4px;
   padding: 12px;
-  font-size: 16px;
-  border: none;
-  border-radius: 8px;
   background-color: #43b943;
   color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-button:hover {
-  background-color: #3aa43a;
 }
