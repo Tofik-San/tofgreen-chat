@@ -1,36 +1,43 @@
-let messages = [];
 
-document.getElementById("sendMessage").addEventListener("click", sendMessage);
-document.getElementById("clearChat").addEventListener("click", clearChat);
+const messages = [];
 
 async function sendMessage() {
-  const input = document.getElementById("userInput");
-  const chatBox = document.getElementById("messages");
-  const userMessage = input.value.trim();
-  if (!userMessage) return;
+    const userInput = document.getElementById("userInput");
+    const message = userInput.value.trim();
+    if (!message) return;
 
-  messages.push({ role: "user", content: userMessage });
-  input.value = "";
-  chatBox.innerHTML += `\n\n<b>Ты:</b> ${userMessage}`;
+    messages.push({ role: "user", content: message });
+    displayMessages();
 
-  try {
-    const response = await fetch("/proxy", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ message: messages })
-    });
-    const data = await response.json();
-    const botReply = data.reply || "Бот не ответил.";
-    chatBox.innerHTML += `\n<b>Бот:</b> ${botReply}`;
-    messages.push({ role: "assistant", content: botReply });
+    userInput.value = "";
 
-    if (messages.length > 6) messages = messages.slice(-6);
-  } catch (err) {
-    chatBox.innerHTML += "\n<b>Ошибка:</b> Не удалось получить ответ от сервера.";
-  }
+    try {
+        const response = await fetch("/api", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ messages }),
+        });
+
+        const data = await response.json();
+        const botReply = data.reply || "Ошибка: бот не ответил";
+
+        messages.push({ role: "assistant", content: botReply });
+        displayMessages();
+    } catch (error) {
+        messages.push({ role: "assistant", content: "Ошибка соединения с сервером." });
+        displayMessages();
+    }
+}
+
+function displayMessages() {
+    const chatBox = document.getElementById("messages");
+    chatBox.innerHTML = messages.map(msg => {
+        return `<b>${msg.role === "user" ? "Ты" : "Бот"}:</b> ${msg.content}`;
+    }).join("<br><br>");
+    chatBox.scrollTop = chatBox.scrollHeight;
 }
 
 function clearChat() {
-  messages = [];
-  document.getElementById("messages").innerHTML = "";
+    messages.length = 0;
+    document.getElementById("messages").innerHTML = "";
 }
