@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Greentoff Agent</title>
+  <style>
+    body {
+      background-color: #f4f5ec;
+      font-family: "Segoe UI", sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .chat-container {
+      max-width: 600px;
+      margin: 15mm auto;
+      border: 2px solid #4CAF50;
+      border-radius: 10px;
+      background-color: #fff;
+      padding: 20px;
+    }
+    h1 {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+    .subtitle {
+      color: #444;
+      margin-bottom: 20px;
+    }
+    #messages {
+      margin-bottom: 15px;
+      white-space: pre-wrap;
+    }
+    .input-area {
+      display: flex;
+      gap: 10px;
+    }
+    input[type="text"] {
+      flex: 1;
+      padding: 10px;
+      font-size: 14px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    button {
+      padding: 10px 15px;
+      font-size: 14px;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+    }
+    #sendMessage {
+      background-color: #4CAF50;
+      color: white;
+    }
+    #clearChat {
+      background-color: #ccc;
+    }
+  </style>
+</head>
+<body>
+  <div class="chat-container">
+    <h1>Greentoff Agent</h1>
+    <div class="subtitle">Твой личный бот — говорит, помнит, помогает</div>
+    <div id="messages"></div>
+    <div class="input-area">
+      <input type="text" id="userInput" placeholder="Напиши что-нибудь..." />
+      <button id="sendMessage">Отправить</button>
+      <button id="clearChat">Сбросить</button>
+    </div>
+  </div>
+  <script src="chat.js"></script>
+</body>
+</html>
