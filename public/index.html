@@ -1,74 +1,121 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Greentoff Agent</title>
   <style>
+    /* Общие настройки */
     body {
-      background-color: #f4f5ec;
-      font-family: "Segoe UI", sans-serif;
       margin: 0;
       padding: 0;
+      background-color: #f6f7f2; /* светлый фон, не напрягает глаза */
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
     }
+
+    /* Контейнер всего чата */
     .chat-container {
-      max-width: 600px;
-      margin: 15mm auto;
-      border: 2px solid #4CAF50;
-      border-radius: 10px;
-      background-color: #fff;
+      background: #ffffff;
+      border: 2px solid #43b943; /* зелёная рамка */
+      border-radius: 12px; /* закругление */
       padding: 20px;
+      width: 90%;
+      max-width: 600px;
+      box-sizing: border-box;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
     }
+
+    /* Заголовок и подзаголовок */
     h1 {
+      margin-top: 0;
       font-size: 24px;
-      margin-bottom: 10px;
+      font-weight: 700;
     }
-    .subtitle {
+
+    p {
+      margin: 4px 0 20px;
+      font-size: 15px;
       color: #444;
-      margin-bottom: 20px;
     }
+
+    /* Сообщения */
     #messages {
+      max-height: 300px;
+      overflow-y: auto;
       margin-bottom: 15px;
-      white-space: pre-wrap;
+      font-size: 16px;
     }
+
+    /* Поле ввода и кнопки */
     .input-area {
       display: flex;
       gap: 10px;
+      flex-wrap: wrap;
     }
+
     input[type="text"] {
-      flex: 1;
+      flex-grow: 1;
       padding: 10px;
-      font-size: 14px;
-      border-radius: 6px;
+      font-size: 16px;
       border: 1px solid #ccc;
+      border-radius: 8px;
+      width: 100%;
+      max-width: 100%;
     }
+
     button {
-      padding: 10px 15px;
-      font-size: 14px;
-      border-radius: 6px;
+      padding: 10px 16px;
+      font-size: 15px;
       border: none;
+      border-radius: 8px;
       cursor: pointer;
-    }
-    #sendMessage {
-      background-color: #4CAF50;
+      background-color: #43b943;
       color: white;
     }
-    #clearChat {
-      background-color: #ccc;
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    @media (max-width: 480px) {
+      .chat-container {
+        padding: 15px;
+        width: 94%;
+      }
+
+      h1 {
+        font-size: 20px;
+      }
+
+      input[type="text"] {
+        font-size: 14px;
+      }
+
+      button {
+        font-size: 14px;
+        padding: 8px 14px;
+      }
     }
   </style>
 </head>
 <body>
   <div class="chat-container">
     <h1>Greentoff Agent</h1>
-    <div class="subtitle">Твой личный бот — говорит, помнит, помогает</div>
+    <p>Твой личный бот — говорит, помнит, помогает</p>
+
     <div id="messages"></div>
+
     <div class="input-area">
       <input type="text" id="userInput" placeholder="Напиши что-нибудь..." />
-      <button id="sendMessage">Отправить</button>
-      <button id="clearChat">Сбросить</button>
+      <button onclick="sendMessage()">Отправить</button>
+      <button onclick="clearChat()">Сбросить</button>
     </div>
   </div>
-  <script src="chat.js"></script>
+
+  <script src="greentoff-chat.js" defer></script>
 </body>
 </html>
