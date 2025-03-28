@@ -1,39 +1,41 @@
-import express from 'express';
-import bodyParser from 'body-parser';
-import cors from 'cors';
-import { OpenAI } from 'openai';
+const express = require('express');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const { Configuration, OpenAIApi } = require('openai');
 
 const app = express();
-const port = 8080;
-
-app.use(cors());
 app.use(bodyParser.json());
-app.use(express.static("public"));
+app.use(cors());
 
-const openai = new OpenAI({
+const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
 });
+const openai = new OpenAIApi(configuration);
 
-app.post("/chat", async (req, res) => {
-  const { message, history } = req.body;
-
-  const context = history || [];
-  context.push({ role: "user", content: message });
-
+app.post('/chat', async (req, res) => {
   try {
-    const chatCompletion = await openai.chat.completions.create({
-      messages: context,
+    const { message, history } = req.body;
+
+    const messages = history && Array.isArray(history)
+      ? history.slice(-2).map((msg) => ({ role: "user", content: msg }))
+      : [];
+
+    messages.push({ role: "user", content: message });
+
+    const completion = await openai.createChatCompletion({
       model: "gpt-3.5-turbo",
+      messages,
     });
 
-    const reply = chatCompletion.choices[0].message.content;
+    const reply = completion.data.choices[0].message.content;
     res.json({ reply });
   } catch (error) {
-    console.error("Ошибка при обращении к OpenAI:", error);
-    res.status(500).json({ reply: "Произошла ошибка. Попробуй ещё раз." });
+    console.error('Error:', error.message);
+    res.status(500).json({ error: 'Something went wrong' });
   }
 });
 
-app.listen(port, () => {
-  console.log(`Сервер запущен на порту ${port}`);
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
+  console.log(`Сервер запущен на порту ${PORT}`);
 });
