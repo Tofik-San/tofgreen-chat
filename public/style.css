@@ -1,58 +1,71 @@
+
 body {
-  margin: 0;
-  padding: 0;
-  background-color: #d8c9ac;
-  font-family: "Segoe UI", sans-serif;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    background-color: #d8cbb3; /* темно-бежевый фон */
+    font-family: "Segoe UI", sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
 }
+
 .chat-container {
-  background-color: #ffffff;
-  border: 2px solid #43b943;
-  border-radius: 12px;
-  padding: 20px;
-  width: 92vw;
-  max-width: 420px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-  box-sizing: border-box;
+    background-color: #fff;
+    border: 2px solid #3cb043;
+    border-radius: 12px;
+    padding: 20px;
+    width: 95vw;
+    max-width: 420px;
+    box-sizing: border-box;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 5px;
+}
+
+.subtitle {
+    font-size: 16px;
+    color: #444;
+    margin-bottom: 15px;
+}
+
 #messages {
-  max-height: 300px;
-  overflow-y: auto;
-  margin-bottom: 15px;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  background: #fafafa;
-  font-size: 14px;
-  line-height: 1.4;
+    max-height: 400px;
+    overflow-y: auto;
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background: #fafafa;
+    font-size: 15px;
+    line-height: 1.4;
+    white-space: pre-wrap;
 }
-#user-input {
-  width: 100%;
-  padding: 10px;
-  font-size: 14px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  resize: none;
-  min-height: 60px;
-  margin-bottom: 10px;
+
+.input-area {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
-.button-row {
-  display: flex;
-  gap: 10px;
+
+textarea {
+    resize: none;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
 }
+
 button {
-  flex: 1;
-  padding: 10px;
-  background-color: #43b943;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-weight: bold;
-  cursor: pointer;
-}
-button:hover {
-  background-color: #369e36;
+    padding: 10px;
+    font-size: 16px;
+    background-color: #3cb043;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
 }
