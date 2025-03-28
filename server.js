@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const OpenAI = require('openai');
 require('dotenv').config();
 
@@ -10,6 +11,7 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
+app.use(cors());
 app.use(bodyParser.json());
 
 app.post('/chat', async (req, res) => {
@@ -19,17 +21,14 @@ app.post('/chat', async (req, res) => {
   try {
     const response = await openai.chat.completions.create({
       model: 'gpt-3.5-turbo',
-      messages: [
-        ...history,
-        { role: 'user', content: message }
-      ],
+      messages: [...history, { role: 'user', content: message }]
     });
 
     const botReply = response.choices[0].message.content;
     res.json({ reply: botReply });
   } catch (error) {
     console.error('OpenAI API error:', error);
-    res.status(500).json({ error: 'Something went wrong' });
+    res.status(500).json({ error: 'Что-то пошло не так...' });
   }
 });
 
