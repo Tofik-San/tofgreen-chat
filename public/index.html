@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Greentoff Agent</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-mode="neutral">
+  <div id="app">
+    <!-- Заголовок -->
+    <header>
+      <h1>Greentoff Agent</h1>
+      <p class="subtitle">Твой личный бот — говорит, помнит, помогает</p>
+    </header>
+
+    <!-- Основная область чата -->
+    <main id="chat-container">
+      <div id="messages"></div>
+      <div class="input-area">
+        <input type="text" id="userInput" placeholder="Напиши что-нибудь..." autofocus>
+        <button onclick="sendMessage()">Отправить</button>
+        <button onclick="clearChat()">Сбросить</button>
+      </div>
+    </main>
+
+    <!-- Блок под будущие кнопки режимов -->
+    <div id="modes" hidden>
+      <!-- Например: <button data-mode="plants">Растения</button> -->
+    </div>
+  </div>
+
+  <!-- Скрипт -->
+  <script src="greentoff-chat.js" defer></script>
+</body>
+</html>
