@@ -1,25 +1,24 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Greentoff Agent</title>
-    <link rel="stylesheet" href="style.css"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Greentoff Agent</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <div class="chat-container">
-        <h1>Greentoff Agent</h1>
-        <p class="subtitle">Личный бот-компаньон</p>
-        <div id="messages"></div>
-        <div class="input-area">
-            <textarea id="userInput" placeholder="Напиши что-нибудь..." rows="3"></textarea>
-            <div class="button-group">
-                <button onclick="sendMessage()">Отправить</button>
-                <button onclick="clearChat()">Сбросить</button>
-            </div>
-        </div>
-    </div>
-    <script src="chat.js"></script>
+  <div class="chat-container">
+    <h1>Greentoff Agent</h1>
+    <p class="subtitle">Личный бот-компаньон</p>
+    <div id="messages" class="messages"></div>
+    <form id="chat-form" class="input-area">
+      <textarea id="user-input" placeholder="Напиши что-нибудь..." rows="3"></textarea>
+      <div class="button-area">
+        <button type="submit">Отправить</button>
+        <button type="button" id="reset-button">Сбросить</button>
+      </div>
+    </form>
+  </div>
+  <script src="script.js"></script>
 </body>
 </html>
