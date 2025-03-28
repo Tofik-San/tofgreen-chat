@@ -36,11 +36,11 @@ header h1 {
   overflow-y: auto;
   margin-bottom: 15px;
   padding: 10px;
-  border: 1px solid #ddd;
+  border: 5px solid #ddd;
   border-radius: 5px;
   background: #fafafa;
-  font-size: 14px;
-  line-height: 1.4;
+  font-size: 20px;
+  line-height: 1.8;
 }
 .input-area {
   display: flex;
