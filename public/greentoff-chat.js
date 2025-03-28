@@ -1,44 +1,25 @@
-const form = document.querySelector("form");
-const input = document.querySelector("input");
-const chatLog = document.createElement("div");
-chatLog.id = "chat-log";
-document.body.appendChild(chatLog);
-
-let history = JSON.parse(localStorage.getItem("chatHistory")) || [];
-
-function updateHistory(userMsg, botMsg) {
-  history.push({ role: "user", content: userMsg });
-  history.push({ role: "assistant", content: botMsg });
-  if (history.length > 6) history = history.slice(-6); // последние 3 сообщения (user+assistant)
-  localStorage.setItem("chatHistory", JSON.stringify(history));
+async function sendMessage() {
+ const input = document.getElementById('userInput');
+ const messages = document.getElementById('messages');
+ const userText = input.value.trim();
+ if (!userText) return;
+ messages.innerHTML += `<p><b>:</b> ${userText}</p>`;
+ try {
+ const response = await fetch('/proxy', {
+ method: 'POST',
+ headers: { 'Content-Type': 'application/json' },
+ body: JSON.stringify({ message: userText })
+ });
+ const data = await response.json();
+ messages.innerHTML += `<p><b>:</b> ${data.reply}</p>`;
+ } catch (error) {
+ messages.innerHTML += `<p><b>:</b> OpenAI</p>`;
+ }
+ input.value = '';
 }
-
-form.addEventListener("submit", async (e) => {
-  e.preventDefault();
-  const message = input.value.trim();
-  if (!message) return;
-
-  appendMessage("Ты", message);
-  input.value = "";
-
-  const payload = {
-    history: history,
-    message: message,
-  };
-
-  const res = await fetch("/chat", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload),
-  });
-
-  const data = await res.json();
-  appendMessage("Бот", data.reply);
-  updateHistory(message, data.reply);
+document.getElementById('sendMessage').addEventListener('click', sendMessage);
+document.getElementById('userInput').addEventListener('keydown', function (e) {
+ if (e.key === 'Enter') {
+ sendMessage();
+ }
 });
-
-function appendMessage(sender, text) {
-  const msg = document.createElement("p");
-  msg.textContent = `${sender}: ${text}`;
-  chatLog.appendChild(msg);
-}
