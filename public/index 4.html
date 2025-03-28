@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Greentoff Agent</title>
+  <style>
+    /* Общие стили */
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f5f7ef; /* мягкий фон */
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      background-color: white;
+      border: 2px solid #3aa858;  /* рамка */
+      border-radius: 10px;        /* закругления */
+      padding: 20px;
+      margin: 15px;
+      max-width: 600px;
+      width: 100%;
+      box-sizing: border-box;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    h1 {
+      font-size: 1.8em;
+      margin: 0 0 10px;
+    }
+
+    p {
+      font-size: 1em;
+      margin: 0 0 15px;
+      color: #333;
+    }
+
+    #messages {
+      margin-bottom: 15px;
+      line-height: 1.4em;
+    }
+
+    .input-area {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    input[type="text"] {
+      flex: 1;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    button {
+      padding: 10px 16px;
+      font-size: 15px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #43a047;
+    }
+
+    .user { font-weight: bold; margin-top: 8px; }
+    .bot { color: #2e7d32; margin-bottom: 10px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Greentoff Agent</h1>
+    <p>Твой личный бот — говорит, помнит, помогает</p>
+    <div id="messages"></div>
+    <div class="input-area">
+      <input type="text" id="userInput" placeholder="Напиши что-нибудь..." />
+      <button onclick="sendMessage()">Отправить</button>
+      <button onclick="clearChat()">Сбросить</button>
+    </div>
+  </div>
+  <script src="greentoff-chat.js"></script>
+</body>
+</html>
