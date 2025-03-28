@@ -54,9 +54,9 @@ h1 {
 textarea {
     resize: none;
     padding: 20px 20px;
-    font-size: 16px;
+    font-size: 20px;
     border-radius: 9px;
-    border: 1px solid #ccc;
+    border: 10px solid #ccc;
     box-sizing: border-box;
 }
 
