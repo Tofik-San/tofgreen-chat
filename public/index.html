@@ -2,20 +2,18 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>TestChat_II</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
     <div class="chat-container">
-        <header>
-            <h1>TestChat_II</h1>
-            <p>Персональный помощник</p>
-        </header>
+        <h1>TestChat_II</h1>
+        <p class="subtitle">Персональный помощник</p>
         <div id="messages"></div>
         <div class="input-area">
-            <input type="text" id="userInput" placeholder="Напиши что-нибудь...">
+            <textarea id="userInput" placeholder="Напиши что-нибудь..." rows="4"></textarea>
             <button onclick="sendMessage()">Отправить</button>
             <button onclick="clearChat()">Сбросить</button>
         </div>

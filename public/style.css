@@ -2,7 +2,7 @@
 body {
     margin: 0;
     padding: 0;
-    background-color: #d9cbb0; /* темно-бежевый фон */
+    background-color: #d8cbb3; /* темно-бежевый фон */
     font-family: "Segoe UI", sans-serif;
     display: flex;
     justify-content: center;
@@ -12,18 +12,24 @@ body {
 
 .chat-container {
     background-color: #fff;
-    border: 3px solid #43b943;
-    border-radius: 16px;
-    padding: 25px;
-    width: 92vw;
+    border: 2px solid #3cb043;
+    border-radius: 12px;
+    padding: 20px;
+    width: 95vw;
     max-width: 420px;
     box-sizing: border-box;
-    box-shadow: 0 0 25px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
-header {
-    margin-bottom: 20px;
-    text-align: left;
+h1 {
+    font-size: 24px;
+    margin-bottom: 5px;
+}
+
+.subtitle {
+    font-size: 16px;
+    color: #444;
+    margin-bottom: 15px;
 }
 
 #messages {
@@ -32,32 +38,34 @@ header {
     margin-bottom: 15px;
     padding: 10px;
     border: 1px solid #ddd;
-    border-radius: 5px;
+    border-radius: 6px;
     background: #fafafa;
-    font-size: 14px;
+    font-size: 15px;
     line-height: 1.4;
+    white-space: pre-wrap;
 }
 
 .input-area {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    align-items: stretch;
 }
 
-input[type="text"] {
+textarea {
+    resize: none;
     padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
     font-size: 16px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
 }
 
 button {
     padding: 10px;
-    background-color: #43b943;
+    font-size: 16px;
+    background-color: #3cb043;
     color: white;
     border: none;
-    border-radius: 8px;
-    font-size: 16px;
+    border-radius: 6px;
     cursor: pointer;
 }
