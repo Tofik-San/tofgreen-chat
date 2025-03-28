@@ -33,7 +33,7 @@ h1 {
 }
 
 #messages {
-    max-height: 400px;
+    max-height: 250px;
     overflow-y: auto;
     margin-bottom: 15px;
     padding: 10px;
