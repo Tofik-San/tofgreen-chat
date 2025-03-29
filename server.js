@@ -26,7 +26,7 @@ app.post("/proxy", async (req, res) => {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        model: "gpt-3.5-turbo",
+        model: "gpt-4-turbo",
         messages: [
           { role: "system", content: "Ты — умный, но спокойный AI-помощник Greentoff. Ты говоришь просто и понятно." },
           ...messages
