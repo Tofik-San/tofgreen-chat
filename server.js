@@ -44,5 +44,4 @@ app.post("/proxy", async (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`Сервер запущен на порту ${PORT}`);
-  console.log("используется модель:", response.model);
 });
