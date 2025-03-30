@@ -27,7 +27,7 @@ body {
 #chat {
   flex-grow: 1;
   overflow-y: auto;
-  border: 1px solid #000000;
+  border: 0.5px solid #00bfff;
   padding: 1em;
   margin-bottom: 1em;
   white-space: pre-wrap;
