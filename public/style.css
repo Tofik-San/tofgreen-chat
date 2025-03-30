@@ -13,10 +13,10 @@ body {
 
 .chat-container {
   background: #ffffff;
-  border: 2px solid #ffff;
-  border-radius: 12px;
+  border: 5px solid #00bfff;
+  border-radius: 15px;
   padding: 1em;
-  box-shadow: 0 0 15px rgba(0,191,255,0.8);
+  box-shadow: 0 0 25px rgba(0,191,255,0.8);
   max-width: 720px;
   height: 90vh;
   display: flex;
