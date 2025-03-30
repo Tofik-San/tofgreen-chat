@@ -1,0 +1,31 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>greenCor</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="header">greenCor</div>
+  <div id="chat"></div>
+  <div class="input-container">
+    <textarea id="input" rows="1" placeholder="Введите сообщение..." oninput="autoGrow(this)"></textarea>
+    <button onclick="sendMessage()">→</button>
+  </div>
+  <script src="chat.js"></script>
+  <script>
+    function autoGrow(element) {
+      element.style.height = "auto";
+      element.style.height = (element.scrollHeight) + "px";
+      if (element.scrollHeight > 120) {
+        element.style.overflowY = "scroll";
+      }
+    }
+  </script>
+</body>
+</html>
