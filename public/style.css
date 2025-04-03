@@ -23,12 +23,13 @@
   box-sizing: border-box;
 }
 
-.input-container {
+#input-container {
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  gap: 8px;
   padding: 12px;
   border-top: 1px solid #ddd;
-  background-color: #f9f6ef;
+  background-color: #f9f6ef;з
 }
 
 textarea {
