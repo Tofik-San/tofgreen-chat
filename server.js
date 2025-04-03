@@ -86,7 +86,7 @@ app.post("/api/chat", async (req, res) => {
     });
 
     const reply = completion.choices[0].message.content;
-    res.json(reply);
+    res.send(reply);
   } catch (error) {
     console.error("GPT-4 Turbo error:", error.message);
 
@@ -96,7 +96,7 @@ app.post("/api/chat", async (req, res) => {
         messages: finalMessages,
       });
       const reply = fallback.choices[0].message.content;
-      res.json({ reply });
+      res.send(reply);
     } catch (fallbackError) {
       console.error("GPT-3.5 Turbo error:", fallbackError.message);
       res.status(500).json({ reply: "Ошибка при обращении к модели OpenAI." });
