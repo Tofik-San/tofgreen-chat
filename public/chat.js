@@ -44,11 +44,10 @@ async function sendMessage() {
       buffer += decoder.decode(value, { stream: true });
 
       for (let char of buffer) {
-        accumulated += char;
-        botElement.innerText = accumulated;
-        // chat.scrollTop = chat.scrollHeight;
-        await new Promise(resolve => setTimeout(resolve, 33)); // ~30 символов/сек
-      }
+  accumulated += char;
+  botElement.innerHTML = accumulated.replace(/\n/g, "<br>");
+  await new Promise(resolve => setTimeout(resolve, 33));
+}
 
       buffer = "";
     }
