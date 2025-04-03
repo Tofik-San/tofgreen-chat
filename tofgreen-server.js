@@ -5,7 +5,6 @@ const cors = require("cors");
 const path = require("path");
 require("dotenv").config();
 const OpenAI = require("openai");
-
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
