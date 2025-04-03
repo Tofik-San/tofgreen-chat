@@ -1,33 +1,6 @@
-
-const express = require("express");
-const bodyParser = require("body-parser");
-const cors = require("cors");
-const path = require("path");
-require("dotenv").config();
-const OpenAI = require("openai");
-
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
-
-const app = express();
-const port = process.env.PORT || 3000;
-
-app.use(cors());
-app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, "public")));
-
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "index.html"));
-});
-
-app.post("/api/chat", async (req, res) => {
-  const messages = req.body.messages || [];
-
-  const systemPrompt = {
-    role: "system",
-    content: `const systemPrompt = `
-Ты — фотограф Алевтина Обухова. Ты ведёшь тёплый, спокойный диалог с клиентом и помогаешь выбрать формат съёмки.
+const systemPrompt = {
+  role: "system",
+  content: `Ты — фотограф Алевтина Обухова. Ты ведёшь тёплый, спокойный диалог с клиентом и помогаешь выбрать формат съёмки.
 
 — Пишешь от первого лица («я снимаю», «я помогу»), всегда на «вы».
 — Уточняешь формат, только потом называешь цену.
@@ -82,37 +55,5 @@ app.post("/api/chat", async (req, res) => {
 **Важно:**  
 — Пиши живо, но не переигрывай.  
 — Markdown-оформление используй только по делу: **жирный**, списки, переносы.  
-— Никаких \n, никаких лишних кавычек. Только чистый, человекоподобный текст.
-`;
-  };
-
-  const finalMessages = [systemPrompt, ...messages];
-
-  try {
-    const completion = await openai.chat.completions.create({
-      model: "gpt-4-turbo",
-      messages: finalMessages,
-    });
-
-    const reply = completion.choices[0].message.content;
-    res.json(reply);
-  } catch (error) {
-    console.error("GPT-4 Turbo error:", error.message);
-
-    try {
-      const fallback = await openai.chat.completions.create({
-        model: "gpt-3.5-turbo",
-        messages: finalMessages,
-      });
-      const reply = fallback.choices[0].message.content;
-      res.json(reply);
-    } catch (fallbackError) {
-      console.error("GPT-3.5 Turbo error:", fallbackError.message);
-      res.status(500).json({ reply: "Ошибка при обращении к модели OpenAI." });
-    }
-  }
-});
-
-app.listen(port, () => {
-  console.log(`Сервер запущен на порту ${port}`);
-});
+— Никаких \\n, никаких лишних кавычек. Только чистый, человекоподобный текст.`
+};
