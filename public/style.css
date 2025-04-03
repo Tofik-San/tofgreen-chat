@@ -2,7 +2,7 @@
 .main-container {
   position: relative;
   height: calc(var(--vh, 1vh) * 95);
-  max-width: 600px;
+  max-width: 500px;
   margin: 10px auto;
   border: 1px solid #ccc;
   border-radius: 12px;
