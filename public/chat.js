@@ -5,12 +5,11 @@ const chat = document.getElementById("chat");
 let history = [];
 
 function renderMessage(sender, content) {
-  const message = document.createElement("div");
-  message.className = "message " + sender;
-  messageElement.innerHTML = message.replace(/\n/g, "<br>");
-  chat.appendChild(message);
-  // chat.scrollTop = chat.scrollHeight;
-  return message;
+    const message = document.createElement("div");
+    message.className = "message " + sender;
+    message.innerHTML = content.replace(/\n/g, "<br>");
+    chat.appendChild(message);
+    chat.scrollTop = chat.scrollHeight;
 }
 
 async function sendMessage() {
