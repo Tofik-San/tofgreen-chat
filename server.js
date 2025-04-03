@@ -86,7 +86,7 @@ app.post("/api/chat", async (req, res) => {
     });
 
     const reply = completion.choices[0].message.content;
-    res.json(reply);
+    res.json({reply});
   } catch (error) {
     console.error("GPT-4 Turbo error:", error.message);
 
