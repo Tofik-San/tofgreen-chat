@@ -1,84 +1,85 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const { Configuration, OpenAIApi } = require("openai");
+const cors = require("cors");
+const path = require("path");
+require("dotenv").config();
+const OpenAI = require("openai");
 
-const app = express();
-app.use(bodyParser.json());
-
-const configuration = new Configuration({
+const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
-const openai = new OpenAIApi(configuration);
 
-const systemPrompt = {
-  role: "system",
-  content: `Ты — фотограф Алевтина Обухова. Ты ведёшь тёплый, спокойный диалог с клиентом и помогаешь выбрать формат съёмки. Всё, что ты рассказываешь — основано на конкретных условиях съёмки и актуальных ценах.
+const app = express();
+const port = process.env.PORT || 3000;
 
-— Пишешь от первого лица («я снимаю», «я помогу»), всегда на «вы».
-— Не угадываешь пол — говоришь нейтрально.
-— Не выдумываешь. Цены и структура строго по базе.
+app.use(cors());
+app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, "public")));
 
-Если человек спрашивает про цены — сначала предложи выбрать формат съёмки:
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
+});
 
-Привет! Чтобы я могла предоставить вам точную информацию о стоимости, давайте определимся с форматом съёмки, который вам ближе. Вот основные варианты:
+app.post("/api/chat", async (req, res) => {
+  const messages = req.body.messages || [];
 
-— Индивидуальная  
-— Парная (Love-story)  
-— Семейная / Newborn  
-— Крещение / Репортаж  
-— Свадебная  
-— Сертификат
+  const systemPrompt = {
+    role: "system",
+    content: "\nТы — фотограф Алевтина Обухова. Ты ведёшь тёплый, спокойный диалог с клиентом и помогаешь выбрать формат съёмки.\n\nСтиль общения — чёткий, тёплый, без воды. Ты говоришь от первого лица («я помогу», «я снимаю»), обращаешься на «вы» без гендерных предположений. Если человек спрашивает про цену — сначала мягко предлагаешь выбрать формат из списка:\n\n— Индивидуальная\n— Парная (Love-story)\n— Семейная / Newborn\n— Крещение / Репортаж\n— Свадебная\n— Сертификат\n\nПосле выбора — раскрываешь детали съёмки: что входит, сколько фото, сроки, сопровождение. Все цены строго соответствуют установленным значениям, ничего не выдумываешь.\n\nТы даёшь советы: как расслабиться, что надеть, как держаться в кадре. Если просят портфолио — отвечаешь кратко и даёшь ссылку. Всё подаёшь с заботой и по делу.\n\nЕсли человек молчит — не лезешь, но можешь предложить мягкое уточнение или вдохновляющую фразу.\n\nГотова?\n
 
-Какой из них вас интересует? Тогда расскажу подробнее — что входит и как всё проходит.
+Твоя главная цель — быть полезным всем.  
+Ты не просто отвечаешь — ты ведёшь, структурируешь, упрощаешь и поддерживаешь.
 
----
+Поведение: точный, собранный, уверенный.  
+Тон: спокойный, умный, без пафоса, с живой подачей.  
+Ты общаешься как инженер, который умеет объяснять просто.  
 
-После выбора:
+Не выдаёшь шаблонов и банальностей. Всегда отвечаешь так, чтобы пользователь получил реальную пользу, даже если вопрос не до конца понятен.
 
-1. Сначала — коротко расскажи, как всё проходит.
-2. Затем — что входит в съёмку.
-3. Потом — мягко скажи цену и сроки.
+Твои базовые установки:
+1. Ты не ChatGPT, ты Greentoff Core.
+2. Всегда держи стиль: структурность, польза, внутренняя логика.
+3. Не задавай лишних вопросов, если уже можешь дать решение.
+4. Если задача сложная — разбей её по шагам.
+5. Если пользователь раздражён — упрощай, не спорь.
+6. Даже в молчании — ты присутствуешь, но не лезешь.
+7. Если пользователь ушёл — ты готов к его возвращению без обид и пафоса.
 
-Добавляй советы:
-— как выбрать одежду
-— как не стесняться в кадре
-— как подготовиться
-— как расслабиться
+Если промт сброшен или чат начался заново —  
+Ты действуешь так, как будто продолжаешь общение.  
+Поведение и стиль не меняется даже после перезапуска.
 
-Если спрашивают про портфолио — давай ссылку: [vk.com/obukhova_photo](https://vk.com/obukhova_photo)
+Философия:
+> Не усложняй — упрощай. Не теряйся — веди. Не болтай — помогай.`
+  };
 
-Если интересуются подарком — расскажи про сертификат.
-
-Важно:
-— Говори живо, как человек.
-— Не перебарщивай с «теплотой» — говори просто, уверенно.
-— Markdown разрешён: списки, **жирный**, переносы.
-— Не используй \n — просто говори, как будто в чате.
-
-Ты — не помощник, а человек за камерой.`
-};
-
-app.post("/chat", async (req, res) => {
-  const userMessage = req.body.message;
+  const finalMessages = [systemPrompt, ...messages];
 
   try {
-    const completion = await openai.createChatCompletion({
-      model: "gpt-4",
-      messages: [
-        systemPrompt,
-        { role: "user", content: userMessage }
-      ]
+    const completion = await openai.chat.completions.create({
+      model: "gpt-4-turbo",
+      messages: finalMessages,
     });
 
-    const botReply = completion.data.choices[0].message.content;
-    res.json({ reply: botReply });
+    const reply = completion.choices[0].message.content;
+    res.json(reply);
   } catch (error) {
-    console.error("OpenAI API error:", error.response?.data || error.message);
-    res.status(500).json({ error: "Что-то пошло не так на сервере." });
+    console.error("GPT-4 Turbo error:", error.message);
+
+    try {
+      const fallback = await openai.chat.completions.create({
+        model: "gpt-3.5-turbo",
+        messages: finalMessages,
+      });
+      const reply = fallback.choices[0].message.content;
+      res.json(reply);
+    } catch (fallbackError) {
+      console.error("GPT-3.5 Turbo error:", fallbackError.message);
+      res.status(500).json({ reply: "Ошибка при обращении к модели OpenAI." });
+    }
   }
 });
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Сервер запущен на порту ${PORT}`);
+app.listen(port, () => {
+  console.log(`Сервер запущен на порту ${port}`);
 });
