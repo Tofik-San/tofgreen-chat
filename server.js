@@ -27,7 +27,7 @@ app.post("/api/chat", async (req, res) => {
   const systemPrompt = {
     role: "system",
     content: `
-    Ты — фотограф Алевтина Обухова. Ты ведёшь тёплый, спокойный диалог с клиентом и помогаешь выбрать формат съёмки.
+Ты — цифровой помощник. Ты ведёшь тёплый, спокойный диалог с клиентом и помогаешь выбрать формат съёмки.
 
 Ты пишешь от первого лица ("я снимаю", "я помогу"), всегда на "вы".
 Уточняешь формат, только потом называешь цену.
@@ -86,7 +86,7 @@ app.post("/api/chat", async (req, res) => {
     });
 
     const reply = completion.choices[0].message.content;
-    res.json(reply);
+    res.json({ reply });
   } catch (error) {
     console.error("GPT-4 Turbo error:", error.message);
 
