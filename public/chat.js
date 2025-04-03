@@ -9,7 +9,6 @@ function renderMessage(sender, content) {
   message.className = "message " + sender;
   message.innerHTML = (content || "").replace(/\n/g, "<br>");
   chat.appendChild(message);
-  // chat.scrollTop = chat.scrollHeight;
   return message;
 }
 
