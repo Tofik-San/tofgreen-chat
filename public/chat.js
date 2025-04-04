@@ -27,7 +27,7 @@ async function sendMessage() {
     const response = await fetch("/api/chat", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ messages: history.slice(-6) })
+      body: JSON.stringify({ messages: history.slice(-15) })
     });
 
     const reader = response.body.getReader();
