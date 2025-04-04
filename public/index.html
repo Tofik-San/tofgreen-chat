@@ -19,10 +19,11 @@
   <div class="main-container">
     <div id="chat"></div>
     <div class="input-container">
-      <textarea id="input" rows="1" placeholder="Введите сообщение..." oninput="autoGrow(this)"></textarea>
-      <button onclick="sendMessage()">→</button>
-    </div>
+  <textarea id="input" rows="1" placeholder="Введите сообщение..." oninput="autoGrow(this)"></textarea>
+  <div class="send-button-wrapper">
+    <button onclick="sendMessage()">Отправить</button>
   </div>
+</div>
   <script src="chat.js"></script>
   <script>
     function autoGrow(element) {
